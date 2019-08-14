@@ -40,6 +40,11 @@ INSTALLED_APPS = [
     #own app
     'accounts',
     'inventory',
+    'customer',
+    'supplier',
+    'sales',
+    'stock',
+    'category',
 
     #third party app
 ]

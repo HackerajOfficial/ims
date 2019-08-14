@@ -24,9 +24,9 @@ def signup(request):
 def login(request):
     if request.method == 'POST':
         user = auth.authenticate(username=request.POST['username'],password=request.POST['password'])
-        if user is not None:
+        if user:
             auth.login(request, user)
-            return render(request, 'index.html')
+            return redirect('index')
         else:
             return render(request, 'accounts/login.html',{'error':'Username or Password is incorrect.'})
     else:

@@ -1,0 +1,139 @@
+{% extends "components/layout.html" %}
+{% block componentapp %}
+    <script LANGUAGE="JavaScript">
+        function confirmSubmit()
+        {
+            var agree=confirm("Are you sure you wish to Delete this Entry?");
+            if (agree)
+                return true ;
+            else
+                return false ;
+        }
+        function confirmDeleteSubmit()
+        {
+            var agree=confirm("Are you sure you wish to Delete Seletec Record?");
+            if (agree)
+
+                document.deletefiles.submit();
+            else
+                return false ;
+        }
+        function checkAll()
+        {
+
+            var field=document.forms.deletefiles;
+            for (i = 0; i < field.length; i++)
+                field[i].checked = true ;
+        }
+        function uncheckAll()
+        {
+            var field=document.forms.deletefiles;
+            for (i = 0; i < field.length; i++)
+                field[i].checked = false ;
+        }
+        // -->
+    </script>
+    <div id="page-wrapper">
+        <div class="container-fluid" style="margin-bottom: 20%">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-12">
+                        <div class="panel-body">
+                            <form action="" method="post" name="search" class="navbar-form navbar-left">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input name="q" type="text" class="form-control" placeholder="Search">
+                                </div>
+                                <button name="Search" class="btn btn-primary dropdown-toggle" type="submit">Search</button>
+                            </form>
+                            <form class="navbar-form navbar-left" action="" method="get" name="page">
+                                Page per Record<input class="form-control" name="limit" type="text"  style="margin-left:5px;" value="" size="3" maxlength="3">
+                                <input class="btn btn-primary dropdown-toggle" name="go" type="submit" value="Go">
+                                <input class="btn btn-primary dropdown-toggle" type="button" name="selectall" value="SelectAll" onClick="checkAll()"  style="margin-left:5px;"/>
+                                <input class="btn btn-primary dropdown-toggle" type="button" name="unselectall" value="DeSelectAll" onClick="uncheckAll()" style="margin-left:5px;" />
+                                <input class="btn btn-primary dropdown-toggle" name="dsubmit" type="button" value="Delete Selected" style="margin-left:5px;" onclick="return confirmDeleteSubmit()"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form role="form" name="deletefiles" action="deleteselected.php" method="post" >
+                        <input name="table" type="hidden" value="customer_details">
+                        <input name="return" type="hidden" value="view_customer_details.php">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" align="center">
+                                <h1 class="panel-title"> View Suppliers Details</h1>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <form role="form" name="deletefiles" action="deleteselected.php" method="post" >
+                                        <input name="table" type="hidden" value="customer_details">
+                                        <input name="return" type="hidden" value="view_customer_details.php">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Supplier Name</th>
+                                                    <th>Supplier Address</th>
+                                                    <th>Mobile Number</th>
+                                                    <th>Phone Number</th>
+                                                    <th>View/Edit</th>
+                                                    <th>Delete</th>
+                                                    <th>Select</th>
+                                                </tr>
+                                                </thead>
+                                                {% for supplier in suppliers %}
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{{ supplier.name }}</td>
+                                                        <td>{{ supplier.address }}</td>
+                                                        <td>{{ supplier.mobile }} </td>
+                                                        <td>{{ supplier.phone }}</td>
+                                                        <td align="center"> <a href="update_supplier_details.php?sid=<?php echo $row['id'];?>"><span class=" glyphicon glyphicon-pencil"></span></a></td>
+                                                        <td align="center"><a onclick="return confirmSubmit()" href="delete.php?id=<?php echo $row['id']; ?>&table=supplier_details&return=view_supplier_details.php">
+                                                                <span class="glyphicon glyphicon-trash"></span></a></td>
+                                                        <td align="center" ><input  type="checkbox" value="<?php echo $row['id']; ?>" name="checklist[]" /></td>
+                                                        </tr>
+                                                </tbody>
+                                                {% endfor %}
+                                            </table>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pagination">
+                                {% if suppliers.has_previous %}
+                                    <a class="pagination-action" href="?page=1">
+                                        <i class="fas fa-angle-double-left"></i>
+                                    </a>
+                                    <a class="pagination-action" href="?page={{ suppliers.previous_page_number }}">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                    {% endif %}
+                                    {% for num in suppliers.paginator.page_range %}
+                                        {% if suppliers.number == num %}
+                                            <span class="pagination-number pagination-current"> {{ num }}</span>
+                                        {% elif num > customers.number|add:'-3' and num < suppliers.number|add:'3' %}
+                                            <a class="pagination-number">{{ num }}</a>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                    {% if suppliers.has_next %}
+                                    <a class="pagination-action" href="?page={{ suppliers.next_page_number }}">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                    <a class="pagination-action" href="?page={{ suppliers.paginator.num_pages }}">
+                                            <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                    {% endif %}
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock componentapp %}

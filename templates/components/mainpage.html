@@ -34,7 +34,7 @@
                 <li class="dropdown">
                     <a href="{% url 'logout' %}" class="dropdown-toggle" ><i class="fa fa-fw fa-power-off"></i> Log Out </a>
                 </li>
-                </ul>
+            </ul>
                 
 
 
@@ -51,11 +51,11 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#demo0">Customer <span style="font-size:16px;" class="glyphicon glyphicon-menu-down"></span><span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
             <ul id="demo0" class="collapse">
                 <li class="active">
-                    <a href="add_customers_details.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-screenshot"></span> Add Customer</a>
+                    <a href="{% url 'add_customer_details' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-screenshot"></span> Add Customer</a>
                 </li>
 
                 <li class="active">
-                    <a href="view_customer_details.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-eye-open"></span> View Customer</a>
+                    <a href="{% url 'view_customer_details' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-eye-open"></span> View Customer</a>
                 </li>
             </ul>
         </li>
@@ -64,11 +64,11 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#demo1"> Suppliers <i style="font-size:16px;" class="pull-center hidden-xs showopacity glyphicon glyphicon-menu-down"></i><span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></a>
             <ul id="demo1" class="collapse">
                 <li class="active">
-                    <a href="add_supplier_details.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-plus"></span> Add Suppliers</a>
+                    <a href="{% url 'add_supplier_details' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-plus"></span> Add Suppliers</a>
                 </li>
 
                 <li class="active">
-                    <a href="view_supplier_details.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-eye-close"></span> View Suppliers Details</a>
+                    <a href="{% url 'view_supplier_details' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-eye-close"></span> View Suppliers Details</a>
                 </li>
             </ul>
         </li>
@@ -77,10 +77,10 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#demo3"> Stock<span style="font-size:16px;" class="glyphicon glyphicon-menu-down"></span><span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-align-justify"></span></a>
             <ul id="demo3" class="collapse">
                 <li>
-                    <a href="add_stock_details.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-plus-sign"></span> Add Stock Details</a>
+                    <a href="{% url 'add_stock_details' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-plus-sign"></span> Add Stock Details</a>
                 </li>
                 <li>
-                    <a href="view_stock_details.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-search"></span> View Stock Details</a>
+                    <a href="{% url 'view_stock_details' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-search"></span> View Stock Details</a>
                 </li>
                 <li>
                     <a href="add_purchase.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-compressed"></span>Purchase Stock </a>
@@ -99,11 +99,11 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"> Sales <i style="font-size:16px;" class="glyphicon glyphicon-menu-down"></i><span style="font-size:22px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-usd"></span></a>
             <ul id="demo" class="collapse">
                 <li>
-                    <a href="add_stock_sales.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-equalizer"></span> Sales</a>
+                    <a href="{% url 'add_stock_sales' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-equalizer"></span> Sales</a>
                 </li>
 
                 <li>
-                    <a href="view_stock_sales.php"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-send"></span> View Sale</a>
+                    <a href="{% url 'view_stock_sales' %}"><span style="font-size:18px;" class="pull-left hidden-xs showopacity glyphicon glyphicon-send"></span> View Sale</a>
                 </li>
             </ul>
         </li>

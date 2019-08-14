@@ -1,0 +1,172 @@
+{% extends "components/layout.html" %}
+
+{% block componentapp %}
+
+
+        <script LANGUAGE="JavaScript">
+            function confirmSubmit()
+            {
+                var agree=confirm("Are you sure you wish to Delete this Entry?");
+                if (agree)
+                    return true ;
+                else
+                    return false ;
+            }
+
+            function confirmDeleteSubmit()
+            {
+                var agree=confirm("Are you sure you wish to Delete Seletec Record?");
+                if (agree)
+
+                    document.deletefiles.submit();
+                else
+                    return false ;
+            }
+            function checkAll()
+            {
+
+                var field=document.forms.deletefiles;
+                for (i = 0; i < field.length; i++)
+                    field[i].checked = true ;
+            }
+
+            function uncheckAll()
+            {
+                var field=document.forms.deletefiles;
+                for (i = 0; i < field.length; i++)
+                    field[i].checked = false ;
+            }
+            // -->
+        </script>
+        <script LANGUAGE="JavaScript">
+            function confirmSubmit()
+            {
+                var agree=confirm("Are you sure you wish to Delete this Entry?");
+                if (agree)
+                    return true ;
+                else
+                    return false ;
+            }
+            function confirmDeleteSubmit()
+            {
+                var agree=confirm("Are you sure you wish to Delete Seletec Record?");
+                if (agree)
+
+                    document.deletefiles.submit();
+                else
+                    return false ;
+            }
+            function checkAll()
+            {
+
+                var field=document.forms.deletefiles;
+                for (i = 0; i < field.length; i++)
+                    field[i].checked = true ;
+            }
+
+            function uncheckAll()
+            {
+                var field=document.forms.deletefiles;
+                for (i = 0; i < field.length; i++)
+                    field[i].checked = false ;
+            }
+            // -->
+        </script>
+
+        
+        <div id="page-wrapper">
+            <div class="container-fluid" style="margin-bottom: 10%">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-12">
+                            <div class="panel-body">
+                                <form action="" method="post" name="search" class="navbar-form navbar-left">
+                                    <div class="form-group">
+                                        <input name="searchtxt" type="text" class="form-control" placeholder="Search">
+                                    </div>
+                                    <button name="Search" class="btn btn-primary dropdown-toggle" type="submit">Search</button>
+                                </form>
+                                <form class="navbar-form navbar-left" action="" method="get" name="page">
+                                    Page per Record<input class="form-control" name="limit" type="text"  style="margin-left:5px;" value="<?php if(isset($_GET['limit'])) echo $_GET['limit']; else echo "10"; ?>" size="3" maxlength="3">
+                                    <input class="btn btn-primary dropdown-toggle" name="go" type="submit" value="Go">
+                                    <input class="btn btn-primary dropdown-toggle" type="button" name="selectall" value="SelectAll" onClick="checkAll()"  style="margin-left:5px;"/>
+                                    <input class="btn btn-primary dropdown-toggle" type="button" name="unselectall" value="DeSelectAll" onClick="uncheckAll()" style="margin-left:5px;" />
+                                    <input class="btn btn-primary dropdown-toggle" name="dsubmit" type="button" value="Delete Selected" style="margin-left:5px;" onclick="return confirmDeleteSubmit()"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form role="form" name="deletefiles" action="deleteselected.php" method="post" >
+                            <input name="table" type="hidden" value="customer_details">
+                            <input name="return" type="hidden" value="view_customer_details.php">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" align="center">
+                                    <h1 class="panel-title"> View Stock Details</h1>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <form role="form" name="deletefiles" action="deleteselected.php" method="post" >
+                                            <input name="table" type="hidden" value="stock_details">
+                                            <input name="return" type="hidden" value="view_stock_details.php">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Date</th>
+                                                        <th>Supplier</th>
+                                                        <th>Category</th>
+                                                        <th>Selling Price</th>
+                                                        <th>Available Stock</th>
+                                                        <th>Date</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <?php
+                                                    while($row = mysql_fetch_array($result))
+                                                    {
+                                                        $mysqldate=$row['expire_date'];
+                                                        $phpdatee = strtotime( $mysqldate );
+                                                        $phpdatee = date("d/m/Y",$phpdatee);
+
+                                                        $mysqldate=$row['date'];
+                                                        $phpdate = strtotime( $mysqldate );
+                                                        $phpdate = date("d/m/Y",$phpdate);
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $row['stock_name']; ?></td>
+                                                            <td><?php echo $phpdate; ?></td>
+                                                            <td><?php echo $row['supplier_id']; ?></td>
+                                                            <td><?php echo $row['category']; ?></td>
+                                                            <td><?php echo $row['selling_price']; ?></td>
+                                                            <td><?php $quantity = $db->queryUniqueValue("SELECT quantity FROM stock_avail WHERE name='".$row['stock_name']."'"); echo $quantity; ?></td>
+                                                            <td><?php echo $phpdatee ?></td>
+                                                            <td> <a href="update_stock_details.php?sid=<?php echo $row['id'];?>"><span class=" glyphicon glyphicon-pencil"></span></a>
+                                                            <a onclick="return confirmSubmit()" href="delete.php?id=<?php echo $row['id']; ?>&table=stock_details&return=view_stock_details.php"><span class="glyphicon glyphicon-trash"></span></a>
+                                                            <input  type="checkbox" value="<?php echo $row['id']; ?>" name="checklist[]" /></td>
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="margin-left:20px;"><?php echo $pagination; ?></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock componentapp %}

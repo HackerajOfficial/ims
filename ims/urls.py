@@ -25,6 +25,11 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('accounts/', include('accounts.urls')),
     path('inventory/', include('inventory.urls')),
+    path('customer/', include('customer.urls')),
+    path('supplier/', include('supplier.urls')),
+    path('sales/', include('sales.urls')),
+    path('stock/', include('stock.urls')),
+    path('category/', include('category.urls')),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
